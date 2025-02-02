@@ -8,7 +8,7 @@
 
    ```
    git clone <URL_репозитория>
-   cd telegram-chatbot
+   cd GeminiChat
    ```
 
 2. Установите зависимости:
