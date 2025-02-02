@@ -3,12 +3,9 @@
 from aiogram import Dispatcher, F
 from aiogram.filters import Command
 from src.handlers.commands import cmd_start, cmd_help
-from src.services.gemini import generate_gemini_response
 
-
-async def handle_message(message):
-    response = await generate_gemini_response(message.text)
-    await message.answer(response)
+# Импортируем обработчик сообщений из message_handler.py
+from src.handlers.message_handler import handle_message
 
 
 def register_handlers(dp: Dispatcher):
