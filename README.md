@@ -1,5 +1,3 @@
-# telegram-chatbot/telegram-chatbot/README.md
-
 # Telegram Chatbot
 
 Этот проект представляет собой Telegram-бота, который использует API Gemini для генерации ответов на сообщения пользователей.
