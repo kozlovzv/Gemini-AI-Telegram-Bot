@@ -3,8 +3,6 @@
 from aiogram import Dispatcher, F
 from aiogram.filters import Command
 from src.handlers.commands import cmd_start, cmd_help
-
-# Импортируем обработчик сообщений из message_handler.py
 from src.handlers.message_handler import handle_message
 
 
