@@ -1,6 +1,7 @@
 from aiogram import types
 from aiogram.fsm.context import FSMContext
 from src.services.gemini import generate_gemini_response
+from src.utils.text_formatter import prepare_text_for_telegram
 import logging
 
 logger = logging.getLogger(__name__)
@@ -18,9 +19,9 @@ async def handle_message(message: types.Message, state: FSMContext):
     logger.debug(f"Новое сообщение: {message.text}")
     logger.debug(f"Текущее состояние: {current_state}")
 
-    # Получаем существующую историю или инициализируем
+    # Получаем историю, инициализируем для маркировки: добавляем префикс "Пользователь:"
     history = current_state.get("history", [])
-    history.append(message.text)
+    history.append(f"Пользователь: {message.text}")
 
     # Объединяем историю в один контекст
     context_text = "\n".join(history)
@@ -28,9 +29,12 @@ async def handle_message(message: types.Message, state: FSMContext):
 
     try:
         response = await generate_gemini_response(context_text)
-        await message.answer(response)
-        # Добавляем ответ в историю (опционально)
-        history.append(response)
+        # Экранируем специальные символы только при отправке
+        safe_response = prepare_text_for_telegram(response)
+        await message.answer(safe_response)
+
+        # В историю сохраняем оригинальный текст
+        history.append(f"Бот: {response}")
         await state.update_data(history=history)
     except Exception as e:
         logger.error(f"Ошибка в handle_message: {e}")
