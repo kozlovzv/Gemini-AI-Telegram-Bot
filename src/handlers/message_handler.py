@@ -3,26 +3,8 @@ from aiogram.fsm.context import FSMContext
 from src.services.gemini import generate_gemini_response
 from src.utils.text_formatter import prepare_message_for_telegram
 import logging
-import re
 
 logger = logging.getLogger(__name__)
-
-
-def format_response(text: str) -> str:
-    """Форматирует ответ, оборачивая блоки кода в HTML-теги code."""
-    # Ищем блоки кода, обрамленные ``` или `
-    code_blocks_pattern = r"```[\s\S]*?```|`[\s\S]*?`"
-
-    def replace_code_block(match):
-        code = match.group(0)
-        # Убираем обрамляющие ``` или `
-        code = code.strip("`")
-        # Оборачиваем в HTML-тег code
-        return f"\n<code>{code}</code>\n"
-
-    # Заменяем все блоки кода
-    formatted_text = re.sub(code_blocks_pattern, replace_code_block, text)
-    return formatted_text
 
 
 async def handle_message(message: types.Message, state: FSMContext):

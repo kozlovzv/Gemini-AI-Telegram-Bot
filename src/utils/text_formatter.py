@@ -50,13 +50,4 @@ def format_code_blocks(text: str) -> str:
 
 def prepare_message_for_telegram(text: str) -> str:
     """Подготавливает сообщение для отправки в Telegram."""
-    # Форматируем блоки кода
-    formatted_text = format_code_blocks(text)
-    return formatted_text
-
-
-def prepare_text_for_telegram(text: str) -> str:
-    """Подготавливает текст для отправки в Telegram."""
-    if contains_markdown_chars(text):
-        return escape_markdown(text)
-    return text
+    return format_code_blocks(text)
