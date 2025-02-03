@@ -25,9 +25,9 @@ if not BOT_TOKEN:
 
 async def main():
     try:
-        # Инициализация бота и диспетчера
+        # Инициализация бота и диспетчера с HTML парсером
         bot = Bot(
-            token=BOT_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.MARKDOWN)
+            token=BOT_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML)
         )
         dp = Dispatcher(storage=MemoryStorage())
 
